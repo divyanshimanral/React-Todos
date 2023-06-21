@@ -1,17 +1,23 @@
 import List from "@mui/material/List";
 import TodoItem from "./TodoItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
 
-const intialTodos = [
-  { id: 1, text: "walk the dog", completed: false },
-  { id: 2, text: "walk the cat", completed: false },
-  { id: 3, text: "walk the mouse", completed: false },
-  { id: 4, text: "walk the dino", completed: true },
-];
+const getInitialData = () => {
+  const data = JSON.parse(localStorage.getItem("todos"));
+  if(!data) return [];
+  return data;
+}
 
 export default function TodoList() {
-  const [todos, setTodos] = useState(intialTodos);
+  const [todos, setTodos] = useState(getInitialData);
+
+  useEffect(() => {
+    localStorage.setItem(
+      'todos',
+      JSON.stringify(todos)
+    )
+  }, [todos])
   const removeTodo = (id) => {
     setTodos((prevTodos) => {
       return prevTodos.filter((t) => t.id !== id);
