@@ -1,3 +1,4 @@
+//Presentational component
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -20,7 +21,7 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-           React Todos
+            React Todos
           </Typography>
         </Toolbar>
       </AppBar>

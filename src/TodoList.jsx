@@ -1,9 +1,11 @@
+// Todolist is parent Component.
 import List from "@mui/material/List";
 import TodoItem from "./TodoItem";
-import { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
+import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
+// Local storage
 const getInitialData = () => {
   const data = JSON.parse(localStorage.getItem("todos"));
   if (!data) return [];
@@ -12,16 +14,18 @@ const getInitialData = () => {
 
 export default function TodoList() {
   const [todos, setTodos] = useState(getInitialData);
-
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+
+  //Removing Todos
   const removeTodo = (id) => {
     setTodos((prevTodos) => {
       return prevTodos.filter((t) => t.id !== id);
     });
   };
 
+  // toggle for checking if the todo is completed
   const toggleTodo = (id) => {
     setTodos((prevTodos) => {
       return prevTodos.map((todo) => {
@@ -34,6 +38,7 @@ export default function TodoList() {
     });
   };
 
+  // Adding todos
   const addTodo = (text) => {
     setTodos((prevTodos) => {
       return [
@@ -42,17 +47,20 @@ export default function TodoList() {
       ];
     });
   };
+
   return (
-    <Box sx={{
-      display:'flex',
-      justifyContent:'center',
-      flexDirection:'column',
-      alignItems:'center',
-      m:3
-    }}>
-       <Typography variant="h2" component="h1" sx={{ flexGrow: 1 }}>
-            Todos
-          </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+        m: 3,
+      }}
+    >
+      <Typography variant="h2" component="h1" sx={{ flexGrow: 1 }}>
+        Todos
+      </Typography>
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         {todos.map((todo) => (
           <TodoItem
